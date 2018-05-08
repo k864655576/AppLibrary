@@ -1,10 +1,16 @@
 package com.kwz.applibrary;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kang.library.widget.banner.Banner;
@@ -18,11 +24,18 @@ import com.kwz.glideimageview.progress.GlideApp;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
 import static com.kang.library.widget.banner.BannerConfig.NUM_INDICATOR;
 
 
 public class MainActivity extends AppCompatActivity {
-    private Banner banner;
+
+    Banner banner;
+    TextView tv;
+
 
 //    GlideImageView ivIcon;
 //    public static final String girl_thumbnail = "https://raw.githubusercontent.com/sfsheng0322/GlideImageView/master/screenshot/girl_thumbnail.jpg";
@@ -88,6 +101,14 @@ public class MainActivity extends AppCompatActivity {
 //                .into(ivIcon);
 
         banner = findViewById(R.id.banners);
+        tv = findViewById(R.id.tv);
+
+        tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, SecondActivity.class));
+            }
+        });
 
         List<String> listImage = new ArrayList<>();
         listImage.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic1xjab4j30ci08cjrv.jpg");
@@ -126,5 +147,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         banner.stopAutoPlay();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

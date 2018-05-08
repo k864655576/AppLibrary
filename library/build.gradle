@@ -28,4 +28,7 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     api 'com.android.support:appcompat-v7:26.1.0'
     api project(':glideimageview')
+    //黄油刀
+    api 'com.jakewharton:butterknife:8.5.1'
+    api 'org.greenrobot:eventbus:3.1.1'
 }
