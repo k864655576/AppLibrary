@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.kang.library.base.BaseActivity;
-import com.kang.library.utils.EventBusEntity;
+import com.kang.library.utils.eventbus.EventBusEntity;
 
 import butterknife.BindView;
 

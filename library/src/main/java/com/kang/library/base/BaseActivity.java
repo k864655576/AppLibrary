@@ -1,6 +1,5 @@
 package com.kang.library.base;
 
-import android.app.ActivityManager;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
@@ -12,7 +11,9 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.kang.library.utils.EventBusEntity;
+import com.kang.library.utils.StatusBarUtil;
+import com.kang.library.utils.eventbus.EventBusEntity;
+import com.kwz.library.R;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -29,26 +30,12 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && Build.VERSION.SDK_INT != Build.VERSION_CODES.LOLLIPOP) {
-            // 透明状态栏
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP) {
-            Window window = getWindow();
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS |
-                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    // | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(Color.TRANSPARENT);
-            window.setNavigationBarColor(Color.TRANSPARENT);
-        }
+        setStatusBar();
         setContentView(getLayoutId());
         butterBind = ButterKnife.bind(this);
         EventBus.getDefault().register(this);
         context = this;
         initView();
-
         initData();
     }
 
@@ -70,6 +57,13 @@ public abstract class BaseActivity extends AppCompatActivity {
         butterBind.unbind();
         EventBus.getDefault().unregister(this);
         destroy();
+    }
+
+    /**
+     * 设置状态栏
+     */
+    protected void setStatusBar() {
+        StatusBarUtil.setColor(this, getResources().getColor(R.color.colorPrimary));
     }
 
     /**

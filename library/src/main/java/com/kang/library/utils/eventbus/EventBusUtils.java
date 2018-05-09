@@ -1,4 +1,4 @@
-package com.kang.library.utils;
+package com.kang.library.utils.eventbus;
 
 import org.greenrobot.eventbus.EventBus;
 

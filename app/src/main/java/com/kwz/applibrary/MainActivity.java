@@ -20,6 +20,7 @@ import com.kang.library.widget.banner.loader.ImageLoader;
 import com.kang.library.widget.banner.loader.ImageLoaderInterface;
 import com.kang.library.widget.banner.transformer.CubeOutTransformer;
 import com.kwz.glideimageview.progress.GlideApp;
+import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -103,6 +104,9 @@ public class MainActivity extends AppCompatActivity {
         banner = findViewById(R.id.banners);
         tv = findViewById(R.id.tv);
 
+        Logger.d(banner);
+
+        Logger.i(banner.toString(), 1);
         tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,6 +123,8 @@ public class MainActivity extends AppCompatActivity {
 //        for (int i = 0; i < 3; i++) {
 //            titles.add("数据源" + i);
 //        }
+
+        Logger.d("dsfdsafdsafdsafdsad");
         banner.setBannerAnimation(CubeOutTransformer.class).setIndicatorGravity(BannerConfig.RIGHT).setIndicatorGravity(BannerConfig.CENTER);
 
         banner.setImages(listImage).setImageLoader(new GlideImageLoader()).setOnBannerListener(new OnBannerListener() {
