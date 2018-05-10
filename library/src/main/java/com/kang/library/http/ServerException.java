@@ -16,4 +16,12 @@ public class ServerException extends RuntimeException {
     public String getMsg() {
         return this.msg;
     }
+
+    @Override
+    public String toString() {
+        return "ServerException{" +
+                "code=" + code +
+                ", msg='" + msg + '\'' +
+                '}';
+    }
 }

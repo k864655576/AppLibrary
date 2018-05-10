@@ -10,6 +10,7 @@ import com.kang.library.http.ApiException;
 import com.kang.library.http.HttpRxObservable;
 import com.kang.library.http.HttpRxObserver;
 import com.kang.library.utils.eventbus.EventBusEntity;
+import com.kang.library.widget.dialog.LoadingDialog;
 import com.orhanobut.logger.Logger;
 
 import java.util.HashMap;
@@ -31,6 +32,8 @@ public class SecondActivity extends BaseActivity {
                 startActivity(new Intent(context, ThirdActivity.class));
             }
         });
+
+        showLoadingDialog();
     }
 
     @Override
@@ -49,6 +52,7 @@ public class SecondActivity extends BaseActivity {
 
             @Override
             protected void onSuccess(Object var1) {
+                hideLoadingDialog();
                 Logger.d(var1);
             }
         });

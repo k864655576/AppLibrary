@@ -13,6 +13,7 @@ import android.view.WindowManager;
 
 import com.kang.library.utils.StatusBarUtil;
 import com.kang.library.utils.eventbus.EventBusEntity;
+import com.kang.library.widget.dialog.LoadingDialog;
 import com.kwz.library.R;
 
 import org.greenrobot.eventbus.EventBus;
@@ -22,10 +23,11 @@ import org.greenrobot.eventbus.ThreadMode;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity implements ViewInterface {
 
     private Unbinder butterBind;
     protected Context context;
+    private LoadingDialog loadingDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -37,6 +39,26 @@ public abstract class BaseActivity extends AppCompatActivity {
         context = this;
         initView();
         initData();
+    }
+
+
+    @Override
+    public void showLoadingDialog() {
+        if (loadingDialog == null) {
+            loadingDialog = new LoadingDialog(this);
+        }
+        loadingDialog.show(null);
+    }
+
+
+    @Override
+    public void hideLoadingDialog() {
+        if (loadingDialog != null) {
+            if (loadingDialog.isShowing()) {
+                loadingDialog.cancel();
+            }
+            loadingDialog = null;
+        }
     }
 
     @Override
