@@ -6,9 +6,17 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.kang.library.base.BaseActivity;
+import com.kang.library.http.ApiException;
+import com.kang.library.http.HttpRxObservable;
+import com.kang.library.http.HttpRxObserver;
 import com.kang.library.utils.eventbus.EventBusEntity;
+import com.orhanobut.logger.Logger;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
+import io.reactivex.disposables.Disposable;
 
 
 public class SecondActivity extends BaseActivity {
@@ -27,6 +35,23 @@ public class SecondActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+        Map<String, Object> map = new HashMap<>();
+        HttpRxObservable.getObservable(AppUtils.getUserApi().system(map)).subscribe(new HttpRxObserver() {
+            @Override
+            protected void onStart(Disposable var1) {
+                Logger.d(var1);
+            }
+
+            @Override
+            protected void onError(ApiException var1) {
+                Logger.d(var1);
+            }
+
+            @Override
+            protected void onSuccess(Object var1) {
+                Logger.d(var1);
+            }
+        });
 
     }
 
