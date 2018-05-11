@@ -1,36 +1,49 @@
 package com.kwz.applibrary;
 
 import android.os.Handler;
+import android.widget.Toast;
 
-import com.kang.library.base.BaseActivity;
-import com.kang.library.widget.EmptyLayoutView;
+import com.kang.library.adapter.BaseCommAdapter;
+import com.kang.library.base.BaseListActivity;
+import com.kwz.applibrary.adapter.UserAdapter;
+import com.kwz.entity.UserEntity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
-import butterknife.BindView;
-
-public class ThirdActivity extends BaseActivity {
-    @BindView(R.id.empty_layout_view)
-    EmptyLayoutView emptyLayoutView;
+public class ThirdActivity extends BaseListActivity<UserEntity> {
 
     @Override
-    protected void initView() {
+    public BaseCommAdapter getAdapter() {
+        return new UserAdapter(context);
+    }
 
+    @Override
+    public void itemClick(Object object, int position) {
+        Toast.makeText(context, ((UserEntity) object).getName(), Toast.LENGTH_SHORT).show();
+    }
 
+    @Override
+    public void loadingData() {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                emptyLayoutView.setEmptyLayout(R.mipmap.ic_launcher, "还没有任何信息", "重新加载");
+                addData();
+                stopRefreshView();
             }
         }, 3000);
     }
 
-    @Override
-    protected void initData() {
 
-    }
+    public void addData(){
+        List<UserEntity> list = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            UserEntity userEntity = new UserEntity();
+            userEntity.setName("数据源"+i);
+            list.add(userEntity);
+        }
 
-    @Override
-    protected int getLayoutId() {
-        return R.layout.activity_third;
+        baseCommAdapter.setList(list);
     }
 }

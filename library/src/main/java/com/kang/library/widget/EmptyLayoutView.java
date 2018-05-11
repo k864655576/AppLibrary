@@ -55,7 +55,7 @@ public class EmptyLayoutView extends FrameLayout implements View.OnClickListener
         tvMsg.setText(msg);
         ivIcon.setVisibility(VISIBLE);
         tvMsg.setVisibility(VISIBLE);
-        btnReloading.setText(GONE);
+        btnReloading.(GONE);
     }
 
     public void setEmptyLayout(@Nullable String msg) {

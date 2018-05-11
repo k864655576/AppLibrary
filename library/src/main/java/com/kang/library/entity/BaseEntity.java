@@ -1,4 +1,4 @@
-package com.kang.library.base;
+package com.kang.library.entity;
 
 import java.io.Serializable;
 

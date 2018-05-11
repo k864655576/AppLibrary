@@ -1,4 +1,4 @@
-package com.kang.library.base;
+package com.kang.library.base.view;
 
 public interface ViewInterface {
     void showLoadingDialog();

@@ -1,6 +1,6 @@
 package com.kang.library.utils.eventbus;
 
-import com.kang.library.base.BaseEntity;
+import com.kang.library.entity.BaseEntity;
 
 public class EventBusEntity extends BaseEntity {
     private int type;
