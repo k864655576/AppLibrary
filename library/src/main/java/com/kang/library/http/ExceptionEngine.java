@@ -1,9 +1,9 @@
 package com.kang.library.http;
 
+import android.util.Log;
+
 import com.google.gson.JsonParseException;
 import com.google.gson.stream.MalformedJsonException;
-import com.orhanobut.logger.Logger;
-
 import org.json.JSONException;
 
 import java.net.ConnectException;
@@ -25,12 +25,12 @@ public class ExceptionEngine {
     public static ApiException handleException(Throwable e) {
         ApiException ex;
         if (e instanceof HttpException) {
-            HttpException httpExc = (HttpException)e;
+            HttpException httpExc = (HttpException) e;
             ex = new ApiException(e, httpExc.code());
             ex.setMsg(HttpError.getName(HttpError.HTTP_EXCEPTION.getType()));
             return ex;
         } else if (e instanceof ServerException) {
-            ServerException serverExc = (ServerException)e;
+            ServerException serverExc = (ServerException) e;
             ex = new ApiException(serverExc, serverExc.getCode());
             ex.setMsg(serverExc.getMsg());
             return ex;
