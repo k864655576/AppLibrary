@@ -55,7 +55,7 @@ public class EmptyLayoutView extends FrameLayout implements View.OnClickListener
         tvMsg.setText(msg);
         ivIcon.setVisibility(VISIBLE);
         tvMsg.setVisibility(VISIBLE);
-        btnReloading.(GONE);
+        btnReloading.setVisibility(GONE);
     }
 
     public void setEmptyLayout(@Nullable String msg) {
@@ -83,6 +83,17 @@ public class EmptyLayoutView extends FrameLayout implements View.OnClickListener
         if (resId == R.id.btnReloading) {
             emptyContainer.setVisibility(GONE);
             progressBar.setVisibility(VISIBLE);
+            onRetryClickListener.onClick();
         }
+    }
+
+    private OnRetryClickListener onRetryClickListener;
+
+    public void setOnRetryClickListener(OnRetryClickListener onRetryClickListener) {
+        this.onRetryClickListener = onRetryClickListener;
+    }
+
+    public interface OnRetryClickListener {
+        void onClick();
     }
 }

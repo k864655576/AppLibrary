@@ -23,6 +23,14 @@ public abstract class BaseListActivity<T extends BaseEntity> extends BaseActivit
     protected EmptyLayoutView emptyLayoutView;
     protected ListView listView;
     protected int page;
+    /**
+     * 是否加载更多
+     */
+    private boolean isLoadMore = true;
+    /**
+     * 是否下拉刷新
+     */
+    private boolean isRefresh = true;
 
     protected BaseCommAdapter baseCommAdapter;
 
@@ -37,9 +45,9 @@ public abstract class BaseListActivity<T extends BaseEntity> extends BaseActivit
         if (baseCommAdapter != null) {
             listView.setAdapter(baseCommAdapter);
         }
-        //设置是否需要刷新
-        refreshLayout.setEnableLoadMore(true);
-        refreshLayout.setEnableRefresh(true);
+
+        refreshLayout.setEnableLoadMore(false);
+        refreshLayout.setEnableRefresh(false);
 
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
@@ -62,6 +70,15 @@ public abstract class BaseListActivity<T extends BaseEntity> extends BaseActivit
                 itemClick(baseCommAdapter.getListData().get(position), position);
             }
         });
+
+        emptyLayoutView.setOnRetryClickListener(new EmptyLayoutView.OnRetryClickListener() {
+            @Override
+            public void onClick() {
+                refreshLayout.setEnableLoadMore(false);
+                refreshLayout.setEnableRefresh(false);
+                initData();
+            }
+        });
     }
 
     @Override
@@ -69,7 +86,7 @@ public abstract class BaseListActivity<T extends BaseEntity> extends BaseActivit
         if (NetUtil.isNetworkAvailable(this)) {
             loadingData();
         } else {
-            emptyLayoutView.setEmptyLayout(R.mipmap.neterror, getString(R.string.network_error));
+            emptyLayoutView.setEmptyLayout(R.mipmap.neterror, getString(R.string.network_error), getString(R.string.click_retry));
             listView.setVisibility(View.GONE);
         }
     }
@@ -83,6 +100,8 @@ public abstract class BaseListActivity<T extends BaseEntity> extends BaseActivit
     public void stopRefreshView() {
         refreshLayout.finishRefresh();
         refreshLayout.finishLoadMore();
+        refreshLayout.setEnableRefresh(isRefresh);
+        refreshLayout.setEnableLoadMore(isLoadMore);
         if (baseCommAdapter.getCount() > 0) {
             listView.setVisibility(View.VISIBLE);
             emptyLayoutView.setVisibility(View.GONE);
@@ -91,5 +110,15 @@ public abstract class BaseListActivity<T extends BaseEntity> extends BaseActivit
             emptyLayoutView.setVisibility(View.VISIBLE);
         }
         emptyLayoutView.setEmptyLayout(R.mipmap.neterror, "暂无信息");
+    }
+
+    @Override
+    public void setLoadMore(boolean loadMore) {
+        isLoadMore = loadMore;
+    }
+
+    @Override
+    public void setRefresh(boolean refresh) {
+        isRefresh = refresh;
     }
 }

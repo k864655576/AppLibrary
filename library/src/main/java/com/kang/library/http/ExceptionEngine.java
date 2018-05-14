@@ -2,6 +2,7 @@ package com.kang.library.http;
 
 import com.google.gson.JsonParseException;
 import com.google.gson.stream.MalformedJsonException;
+import com.orhanobut.logger.Logger;
 
 import org.json.JSONException;
 

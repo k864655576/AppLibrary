@@ -6,6 +6,21 @@ import com.kang.library.entity.BaseEntity;
 public interface BaseListView<T extends BaseEntity> {
 
     /**
+     * 设置是否加载更多
+     *
+     * @param isLoadMore
+     */
+    void setLoadMore(boolean isLoadMore);
+
+    /**
+     * 设置是否下拉刷新
+     *
+     * @param isRefresh
+     */
+    void setRefresh(boolean isRefresh);
+
+
+    /**
      * 获取适配器
      */
     BaseCommAdapter<T> getAdapter();

@@ -47,6 +47,7 @@ public class SecondActivity extends BaseActivity {
 
             @Override
             protected void onError(ApiException var1) {
+                hideLoadingDialog();
                 Logger.d(var1);
             }
 
