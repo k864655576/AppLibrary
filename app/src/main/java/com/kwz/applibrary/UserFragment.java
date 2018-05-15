@@ -10,7 +10,8 @@ import com.kwz.entity.UserEntity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserFragment<UserEntity> extends BaseListFragment {
+
+public class UserFragment extends BaseListFragment<UserEntity> {
     @Override
     public BaseCommAdapter getAdapter() {
         return new UserAdapter(getContext());
@@ -34,13 +35,12 @@ public class UserFragment<UserEntity> extends BaseListFragment {
 
 
     public void addData() {
-        List<com.kwz.entity.UserEntity> list = new ArrayList<>();
+        List<UserEntity> list = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            com.kwz.entity.UserEntity userEntity = new com.kwz.entity.UserEntity();
+            UserEntity userEntity = new UserEntity();
             userEntity.setName("数据源" + i);
             list.add(userEntity);
         }
-
         baseCommAdapter.setList(list);
     }
 }

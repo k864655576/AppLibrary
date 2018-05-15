@@ -42,20 +42,19 @@ public abstract class BaseFragment extends Fragment implements ViewInterface {
         initData();
     }
 
-    protected abstract void initData();
 
     /**
      * 初始化页面
      *
      * @param view
      */
-
+    protected abstract void initView(View view);
     /**
      * 初始化数据
      *
      * @param view
      */
-    protected abstract void initView(View view);
+    protected abstract void initData();
 
 
     protected abstract @LayoutRes
@@ -101,7 +100,6 @@ public abstract class BaseFragment extends Fragment implements ViewInterface {
             butterBind.unbind();
         }
         destroy();
-
     }
 
     protected void destroy() {

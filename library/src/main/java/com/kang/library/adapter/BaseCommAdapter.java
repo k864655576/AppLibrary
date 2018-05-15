@@ -10,10 +10,10 @@ import com.kang.library.entity.BaseEntity;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class BaseCommAdapter<T extends BaseEntity> extends BaseAdapter implements AdapterView {
-    protected Context mContext;
+public abstract class BaseCommAdapter<T extends BaseEntity> extends BaseAdapter implements AdapterView<T> {
+    private Context mContext;
     protected LayoutInflater inflater;
-    protected List<T> listData = new ArrayList<T>();
+    private List<T> listData = new ArrayList<T>();
 
     public BaseCommAdapter(Context context) {
         this.mContext = context;
@@ -26,7 +26,7 @@ public abstract class BaseCommAdapter<T extends BaseEntity> extends BaseAdapter 
      * @param listData
      */
     public void setList(List<T> listData) {
-        if (listData != null && listData.size() > 0) {
+        if (listData != null) {
             this.listData.addAll(listData);
         }
         notifyDataSetChanged();
@@ -37,12 +37,14 @@ public abstract class BaseCommAdapter<T extends BaseEntity> extends BaseAdapter 
      *
      * @param t
      */
-    public void addObject(T t) {
+    @Override
+    public void addItem(T t) {
         if (null != t) {
             this.listData.add(t);
             notifyDataSetChanged();
         }
     }
+
 
     /**
      * 添加数据
@@ -50,7 +52,8 @@ public abstract class BaseCommAdapter<T extends BaseEntity> extends BaseAdapter 
      * @param position
      * @param t
      */
-    public void addObject(int position, T t) {
+    @Override
+    public void addItem(int position, T t) {
         if (null != t) {
             this.listData.add(position, t);
             notifyDataSetChanged();
@@ -79,6 +82,10 @@ public abstract class BaseCommAdapter<T extends BaseEntity> extends BaseAdapter 
 
     public List<T> getListData() {
         return listData;
+    }
+
+    protected Context getContext() {
+        return mContext;
     }
 
     @Override
